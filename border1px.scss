@@ -1,6 +1,12 @@
 // border1px.scss
+
+// with single class:
+// 1.@import "@/scss/border1px.scss"; //引入文件
+// 2.@include borderCreator("border-btn", "", dashed, #979797); //这会创建一个名字为`border-btn`的class
+
+
 @mixin borderCreator($name, $direction, $type, $color) {
-  .border-#{$name} {
+  .#{$name} {
     @if $direction!= "" {
       border-#{$direction}: 1px $type $color;
     } @else {
@@ -24,6 +30,51 @@
       } @else {
         border: 0.333333px $type $color;
       }
+    }
+  }
+}
+
+// with inside class:
+// 1.@import "@/scss/border1px.scss"; //引入文件
+/*
+ .content{
+    @include  borderInsideCreator("top","solid","#000")
+    color:red;
+  }
+
+  will be translate to
+
+  .content{
+    border-top: 1px solid #000;
+    color:red;
+    @media screen and (-webkit-min-device-pixel-ratio: 2) {
+      border-top: 0.5px solid #000;
+    }
+    @media screen and (-webkit-min-device-pixel-ratio: 3) {
+      border-top: 0.333333px solid #000;
+    }
+  }
+*/
+
+@mixin borderInsideCreator($direction, $type, $color) {
+  @if $direction!= "" {
+    border-#{$direction}: 1px $type $color;
+  } @else {
+    border: 1px $type $color;
+  }
+
+  @media screen and (-webkit-min-device-pixel-ratio: 2) {
+    @if $direction!= "" {
+      border-#{$direction}: 0.5px $type $color;
+    } @else {
+      border: 0.5px $type $color;
+    }
+  }
+  @media screen and (-webkit-min-device-pixel-ratio: 3) {
+    @if $direction!= "" {
+      border-#{$direction}: 0.333333px $type $color;
+    } @else {
+      border: 0.333333px $type $color;
     }
   }
 }
