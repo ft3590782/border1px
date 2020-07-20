@@ -25,7 +25,7 @@ eg:You created class name as `border-btn`
 
 ```css
 // usage.scss
-@import "@/scss/border_1px.scss";
+@import "@/scss/border1px.scss";
 
 @include borderCreator("btn", "", dashed, #979797); //create class named `border-btn`
 ```
@@ -79,3 +79,28 @@ result in css
 	    border-bottom: 0.333333px solid rgba(185, 185, 185, 0.5);
 	}
 }
+```
+
+### use for including a Mixin to a class
+``` scss
+ @import "@/scss/border1px.scss";
+
+ .content{
+    @include  borderInsideCreator("top","solid","#000")
+    color:red;
+ }
+ 
+ //will be
+ 
+ .content{
+    color:red;
+    border-top: 1px solid #000;
+    @media screen and (-webkit-min-device-pixel-ratio: 2) {
+      border-top: 0.5px solid #000;
+    }
+    @media screen and (-webkit-min-device-pixel-ratio: 3) {
+      border-top: 0.333333px solid #000;
+    }
+  }
+```
+
